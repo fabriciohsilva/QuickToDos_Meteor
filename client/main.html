@@ -1,0 +1,66 @@
+<head>
+  <title>QuickTodos</title>
+</head>
+
+<body>
+  <div class="container">
+    {{> main}}
+  </div>
+</body>
+
+<template name="main">
+  <header>
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">{{title}}</a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">{{> loginButtons}}</a></li>
+    </ul>      
+
+
+  </div><!-- /.container-fluid -->
+</nav>
+
+    {{#if currentUser}}
+    <form class="add-todo form-inline">
+      <input  class="form-control" type="text" name="text" placeholder="Add Todo...">
+      <input  class="form-control" type="text" name="time" placeholder="Add Time...">
+      <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+    <br>
+    {{/if}}
+  </header>
+
+  <ul class="list-group">
+    {{#each todos}}
+     {{> todo}}
+    {{/each}}
+  </ul>
+
+</template>
+
+<template name="todo">
+    <li class="list-group-item {{#if checked}}checked{{/if}}">
+      {{#if isOwner}}<button class="delete btn btn-danger">&times;</button>
+        <button class="toogle-private btn btn-warning">
+          {{#if private}}
+            Private
+          {{else}}
+            Public
+          {{/if}}
+        </button>
+      {{/if}}
+      <input type="checkbox" checked="{{checked}}" class=" toogle-checked">
+      <strong>{{username}} -</strong> {{text}} <span>[{{time}}]</span>
+    </li>
+</template>
